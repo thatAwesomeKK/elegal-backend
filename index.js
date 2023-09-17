@@ -1,5 +1,6 @@
-import app from "./app.js";
-import { connectToMongo } from "./config/db.js";
+import app from "./src/app.js";
+import { connectToMongo } from "./src/config/db.js";
+
 
 const PORT = process.env.PORT || 5000;
 
