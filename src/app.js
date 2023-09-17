@@ -1,6 +1,5 @@
 import "dotenv/config.js";
 import express from "express";
-import helmet from "helmet";
 import cors from "cors";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
@@ -13,7 +12,6 @@ import serviceRequestRouter from "./routes/serviceRequest.js";
 import profileRouter from "./routes/profile.js";
 
 app.use(morgan("dev"));
-app.use(helmet());
 app.use(
     cors({
       origin: process.env.CLIENT_URL,
