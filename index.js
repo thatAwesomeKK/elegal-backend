@@ -30,6 +30,10 @@ app.use(morgan("dev"));
 app.use(express.json({ limit: "1000mb" }));
 app.use(express.urlencoded({ extended: false }));
 
+app.get('/',(req, res)=>{
+  res.send('Hello World!')
+})
+
 app.use("/api/auth", authRouter);
 app.use("/api/service-request", serviceRequestRouter);
 app.use("/api/profile", profileRouter);
