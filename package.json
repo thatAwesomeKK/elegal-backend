@@ -8,8 +8,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\"",
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "vercel-build": "echo hello"
+    "dev": "nodemon src/index.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
