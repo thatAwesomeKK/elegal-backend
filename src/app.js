@@ -12,12 +12,12 @@ import serviceRequestRouter from "./routes/serviceRequest.js";
 import profileRouter from "./routes/profile.js";
 
 app.use(morgan("dev"));
-app.use(
-    cors({
-      origin: process.env.CLIENT_URL,
-      credentials: true,
-    })
-  );
+// app.use(
+//     cors({
+//       origin: process.env.CLIENT_URL,
+//       credentials: true,
+//     })
+//   );
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(express.json({ limit: "1000mb" }));
