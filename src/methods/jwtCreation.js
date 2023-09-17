@@ -1,13 +1,6 @@
 import jwt from "jsonwebtoken";
-import { fileURLToPath } from "url";
-import path from "path";
-import fs from 'fs'
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const pathToKey = path.join(__dirname, "..", "id_rsa_priv.pem");
-const PRIV_KEY = fs.readFileSync(pathToKey, "utf8");
+const PRIV_KEY = process.env.PRIVATE_KEY
 
 export const getAccessToken = (payload) => {
   const expiresIn = "1d";
