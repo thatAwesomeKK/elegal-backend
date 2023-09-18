@@ -44,14 +44,6 @@ export default async function (req, res) {
       html: HTML,
     };
     await transporter.sendMail(emailMessage);
-    // const data = await resend.emails.send({
-    //   from: "onboarding@resend.dev",
-    //   to: "2550492.kk@gmail.com" ,
-    //   subject: "Confirm Email",
-    //   html: HTML,
-    // });
-
-    // console.log(data);
 
     return res
       .status(200)
