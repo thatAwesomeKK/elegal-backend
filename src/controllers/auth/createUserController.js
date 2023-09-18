@@ -38,7 +38,7 @@ export default async function (req, res) {
     
     const HTML = verifyEmailGenerate(createdUser._id);
     const emailMessage = {
-      from: process.env.CLIENT_USER_EMAIL,
+      from: "ELEGAL <elegal.thatawesomekk.eu.org>",
       to: email,
       subject: "Verify EMAIL",
       html: HTML,
