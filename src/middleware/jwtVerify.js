@@ -1,34 +1,31 @@
 import jwt from "jsonwebtoken";
-import cookieConfig from "../config/cookieConfig.js";
+const EMAIL_PUB_KEY = process.env.EMAIL_PUB_KEY;
+const FORGOT_PASS_PUB_KEY = process.env.FORGOT_PASS_PUB_KEY;
 
-const jwtRefreshSecret = process.env.JWT_REFRESH_SECRET;
-const jwtAccessSecret = process.env.JWT_ACCESS_SECRET;
-
-//Verify Refresh Token
-export const verifyRefreshToken = async (req, res, next) => {
+//Verify Confirm Email Token
+export const verifyConfirmEmailToken = async (req, res, next) => {
   try {
-    const token = await req.cookies.refreshToken;
+    const token = await req.headers.authorization
     if (!token) {
-      return res.status(401).json({ success: false, error: "Not Authorized" });
+      return res.status(401).json({ success: false, error: "Token Invalid" });
     }
-    req.verify = jwt.verify(token, jwtRefreshSecret);
+    req.verify = jwt.verify(token, EMAIL_PUB_KEY);
   } catch (error) {
-    res.clearCookie("refreshToken", cookieConfig);
-    return res.status(403).json({ success: false, error: "Not Authorized" });
+    return res.status(401).json({ success: false, error: "Token Invalid" });
   }
   next();
 };
 
-//Verify Access Token
-export const verifyAccessToken = async (req, res, next) => {
+//Verify Forgot Password Token
+export const verifyForgotPassToken = async (req, res, next) => {
   try {
-    const token = await req.headers.accesstoken.split(" ")[1];
+    const token = await req.headers.authorization
     if (!token) {
-      return res.status(401).json({ success: false, error: "Not Authorized" });
+      return res.status(401).json({ success: false, error: "Token Invalid" });
     }
-    req.verify = jwt.verify(token, jwtAccessSecret);
+    req.verify = jwt.verify(token, FORGOT_PASS_PUB_KEY);
   } catch (error) {
-    return res.status(401).json({ success: false, error: "Not Authorized" });
+    return res.status(401).json({ success: false, error: "Token Invalid" });
   }
   next();
 };

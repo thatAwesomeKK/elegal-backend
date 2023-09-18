@@ -71,6 +71,11 @@ export const userSchema = new Schema(
         ref: "serviceRequest",
       },
     ],
+    verified: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
   { timestamps: true }
 );

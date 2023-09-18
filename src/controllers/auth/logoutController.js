@@ -6,7 +6,7 @@ export default async function (req, res) {
     const user = await User.findById({ _id: req.user._id });
     if (!user) {
       res.clearCookie("accessToken", cookieConfig);
-      return res.status(200).json({ success: true });
+      return res.status(200).json({ success: false, error: "User does not Exists!" });
     }
     res.clearCookie("accessToken", cookieConfig);
     return res

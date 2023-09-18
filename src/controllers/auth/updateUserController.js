@@ -16,7 +16,7 @@ export default async function (req, res) {
     } = req.body;
     const user = await User.findById({ _id: req.user._id });
     if (!user) {
-      return res.status(401).json({ success: false });
+      return res.status(401).json({ success: false, error: 'User not found' });
     }
     let updUser = {};
     // if (pfp) {

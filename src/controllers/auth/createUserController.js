@@ -1,5 +1,7 @@
 import bcrypt from "bcryptjs";
 import User from "../../models/User.js";
+import { verifyEmailGenerate } from "../../methods/generateEmail.js";
+import { transporter } from "../../config/nodemailer.js";
 
 export default async function (req, res) {
   try {
@@ -31,29 +33,29 @@ export default async function (req, res) {
     if (specialization) newUser.specialization = specialization;
     if (licenseId) newUser.licenseId = licenseId;
 
-    await new User(newUser).save();
 
-    // const emailVerifytoken = getEmailVerifyToken({ id: newUser._id })
-    // const genEmail = {
-    //     body: {
-    //         name: username,
-    //         intro: 'Welcome to Ringotunes! We\'re very excited to have you on board.',
-    //         action: {
-    //             instructions: 'To get started with Ringotunes, Verify your Email here:',
-    //             button: {
-    //                 color: '#22BC66', // Optional action button color
-    //                 text: 'Verify Your Email Address!',
-    //                 link: `${process.env.CLIENT_URL}/verify/email/${emailVerifytoken}`
-    //             }
-    //         },
-    //         outro: 'Need help, or have questions? Just reply to this email, we\'d love to help.'
-    //     }
-    // }
-    // await emailVerifyGenerator(email, genEmail)
+    const createdUser = await new User(newUser).save();
+    
+    const HTML = verifyEmailGenerate(createdUser._id);
+    const emailMessage = {
+      from: process.env.CLIENT_USER_EMAIL,
+      to: email,
+      subject: "Verify EMAIL",
+      html: HTML,
+    };
+    await transporter.sendMail(emailMessage);
+    // const data = await resend.emails.send({
+    //   from: "onboarding@resend.dev",
+    //   to: "2550492.kk@gmail.com" ,
+    //   subject: "Confirm Email",
+    //   html: HTML,
+    // });
+
+    // console.log(data);
 
     return res
       .status(200)
-      .json({ success: true, message: "Successfully Registered!" });
+      .json({ success: true, message: "Confirm Email Address!" });
   } catch (error) {
     console.log(error);
     return res

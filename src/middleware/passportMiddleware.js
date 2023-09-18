@@ -9,7 +9,7 @@ export default async function (req, res, next) {
       return next(err);
     }
     if (!user) {
-      return res.status(401).json({ success: false, message: "Unauthorized" });
+      return res.status(401).json({ success: false, error: "Unauthorized" });
     }
     req.user = user;
     return next();

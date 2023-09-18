@@ -7,7 +7,7 @@ export default async function (req, res) {
     if (user.role !== "service-provider")
       return res.status(400).json({
         success: false,
-        message: "Unauthorized!",
+        error: "Unauthorized!",
       });
       
     const service = await ServiceRequest.find({ life: "created" });
@@ -20,7 +20,7 @@ export default async function (req, res) {
     console.log(error);
     return res.status(500).json({
       success: false,
-      message: "Internal Server Error",
+      error: "Internal Server Error",
     });
   }
 }
