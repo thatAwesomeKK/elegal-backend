@@ -1,19 +1,20 @@
+import Feedback from "../../models/Feedback.js";
 import ServiceRequest from "../../models/ServiceRequest.js";
 
 export default async function (req, res) {
   try {
     const user = req.user;
-    let service;
+    let services = [];
 
     if (user.role === "buyer")
-      service = await ServiceRequest.find({ creatorId: user._id }).populate({
+      services = await ServiceRequest.find({ creatorId: user._id }).populate({
         path: "LegalProviderId",
         model: "user",
         select: "username pfp",
       });
 
     if (user.role === "service-provider")
-      service = await ServiceRequest.find({
+      services = await ServiceRequest.find({
         LegalProviderId: user._id,
       }).populate({
         path: "LegalProviderId",
@@ -21,9 +22,16 @@ export default async function (req, res) {
         select: "username pfp",
       });
 
+
+    for (let i = 0; i < services.length; i++) {
+      const service = services[i];
+      const foundFeedback = await Feedback.find({ serviceId: service._id });
+      service._doc.feedback = foundFeedback.length > 0 ? true : false;
+    }
+
     return res.status(200).json({
       success: true,
-      message: service,
+      message: services,
     });
   } catch (error) {
     console.log(error);

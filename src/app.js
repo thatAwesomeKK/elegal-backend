@@ -10,6 +10,7 @@ const app = express();
 import authRouter from "./routes/auth.js";
 import serviceRequestRouter from "./routes/serviceRequest.js";
 import profileRouter from "./routes/profile.js";
+import feedbackRouter from "./routes/feedback.js";
 
 app.use(
   cors({
@@ -30,5 +31,6 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRouter);
 app.use("/api/service-request", serviceRequestRouter);
 app.use("/api/profile", profileRouter);
+app.use("/api/feedback", feedbackRouter);
 
 export default app;
