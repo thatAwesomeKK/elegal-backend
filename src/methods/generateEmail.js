@@ -191,7 +191,7 @@ export const verifyForgotPasswordGenerate = (userId) => {
                   </p>
                   <div role="separator" style="line-height: 24px">&zwj;</div>
                   <div>
-                    <a href="${host_url}/auth/forgot-password/${token}" style="display: inline-block; border-radius: 4px; background-color: #4338ca; padding: 16px 24px; font-size: 16px; font-weight: 600; line-height: 1; color: #f8fafc; text-decoration: none">
+                    <a href="${host_url}/auth/forgot-password?token=${token}" style="display: inline-block; border-radius: 4px; background-color: #4338ca; padding: 16px 24px; font-size: 16px; font-weight: 600; line-height: 1; color: #f8fafc; text-decoration: none">
                       <!--[if mso]>
       <i style="mso-font-width: -100%; letter-spacing: 32px; mso-text-raise: 30px" hidden>&nbsp;</i>
     <![endif]-->

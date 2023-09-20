@@ -1,5 +1,6 @@
 import Feedback from "../../models/Feedback.js";
 import ServiceRequest from "../../models/ServiceRequest.js";
+import User from "../../models/User.js";
 
 export default async function (req, res) {
   try {
@@ -9,7 +10,7 @@ export default async function (req, res) {
     if (user.role === "buyer")
       services = await ServiceRequest.find({ creatorId: user._id }).populate({
         path: "LegalProviderId",
-        model: "user",
+        model: User,
         select: "username pfp",
       });
 
@@ -18,14 +19,16 @@ export default async function (req, res) {
         LegalProviderId: user._id,
       }).populate({
         path: "LegalProviderId",
-        model: "user",
+        model: User,
         select: "username pfp",
       });
 
-
     for (let i = 0; i < services.length; i++) {
       const service = services[i];
-      const foundFeedback = await Feedback.find({ serviceId: service._id });
+      const foundFeedback = await Feedback.find({
+        serviceId: service._id,
+        uid: user._id,
+      });
       service._doc.feedback = foundFeedback.length > 0 ? true : false;
     }
 
