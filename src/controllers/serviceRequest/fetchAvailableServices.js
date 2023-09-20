@@ -9,8 +9,11 @@ export default async function (req, res) {
         success: false,
         error: "Unauthorized!",
       });
-      
-    const service = await ServiceRequest.find({ life: "created" });
+
+    const service = await ServiceRequest.find({
+      life: "created",
+      type: user.type,
+    });
 
     return res.status(200).json({
       success: true,

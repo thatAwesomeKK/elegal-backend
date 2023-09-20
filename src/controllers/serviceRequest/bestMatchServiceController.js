@@ -5,14 +5,26 @@ export default async function (req, res) {
   try {
     const user = req.user;
 
-    const services = await User.findById({ _id: user._id }).select("matchRequests").populate({
-      path: "matchRequests",
-      model: ServiceRequest,
-    });
+    let services;
+
+    if (user.type === "advocate") {
+      services = await ServiceRequest.find({
+        state: user.state,
+        city: user.city,
+        type: user.type,
+        caseType: user.specialization,
+      });
+    } else {
+      services = await ServiceRequest.find({
+        state: user.state,
+        city: user.city,
+        type: user.type,
+      });
+    }
 
     return res.status(200).json({
       success: true,
-      message: services.matchRequests,
+      message: services,
     });
   } catch (error) {
     return res.status(500).json({

@@ -28,15 +28,6 @@ export default async function (req, res) {
 
     const service = await new ServiceRequest(newService).save();
 
-    await User.updateMany(
-      {
-        specialization: service.caseType,
-        state: service.state,
-        city: service.city,
-      },
-      { $addToSet: { matchRequests: service._id } }
-    );
-
     return res.status(200).json({
       success: true,
       message: "Successfully Created Service Request!",
