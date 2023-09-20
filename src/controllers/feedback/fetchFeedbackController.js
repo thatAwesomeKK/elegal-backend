@@ -5,7 +5,7 @@ export default async function (req, res) {
     const feedbacks = await Feedback.find().populate({
       path: "uid",
       model: "user",
-      select: "username pfp type",
+      select: "username pfp type role",
     });
 
     return res.status(200).json({

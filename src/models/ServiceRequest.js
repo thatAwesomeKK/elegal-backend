@@ -45,6 +45,14 @@ export const serviceRequestSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "user",
     },
+    PotentialProviders: [
+      {
+        uid: { type: Schema.Types.ObjectId, ref: "user" },
+        price: {
+          type: String,
+        },
+      },
+    ],
     life: {
       type: String,
       required: true,
