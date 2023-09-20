@@ -28,7 +28,6 @@ export default async function (req, res) {
         LegalProviderId: serviceProviderId,
         price,
       });
-
       await User.findByIdAndUpdate(serviceProviderId, {
         $pull: {
           matchRequests: foundService._id,
