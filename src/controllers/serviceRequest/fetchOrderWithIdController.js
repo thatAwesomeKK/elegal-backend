@@ -12,23 +12,17 @@ export default async function (req, res) {
       });
     }
 
-    const foundService = await ServiceRequest.findById({ _id: serviceId });
-
-    let service;
-
-    if (!foundService.LegalProviderId) {
-      service = await ServiceRequest.findById({ _id: serviceId })
-        .populate({
-          path: "LegalProviderId",
-          model: User,
-          select: "username pfp",
-        })
-        .populate({
-          path: "PotentialProviders.uid",
-          model: User,
-          select: "_id username pfp",
-        });
-    }
+    const service = await ServiceRequest.findById({ _id: serviceId })
+      .populate({
+        path: "LegalProviderId",
+        model: User,
+        select: "username pfp",
+      })
+      .populate({
+        path: "PotentialProviders.uid",
+        model: User,
+        select: "_id username pfp",
+      });
 
     return res.status(200).json({
       success: true,

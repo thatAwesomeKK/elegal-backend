@@ -8,6 +8,7 @@ import fetchAvailableServices from "../controllers/serviceRequest/fetchAvailable
 import fetchServiceWithIdController from "../controllers/serviceRequest/fetchServiceWithIdController.js";
 import passportMiddleware from "../middleware/passportMiddleware.js";
 import applyToServiceController from "../controllers/serviceRequest/applyToServiceController.js";
+import fetchOrderWithIdController from "../controllers/serviceRequest/fetchOrderWithIdController.js";
 
 //Create Service Request /api/service-request/create
 router.post("/create", passportMiddleware, createServiceController);
@@ -22,7 +23,8 @@ router.get("/fetch-bestmatch", passportMiddleware, bestMatchServiceController);
 
 router.get("/fetch-available", passportMiddleware, fetchAvailableServices);
 
-router.get("/fetch-withid", passportMiddleware, fetchServiceWithIdController);
+router.get("/fetch-with-serviceid", passportMiddleware, fetchServiceWithIdController);
+router.get("/fetch-with-orderid", passportMiddleware, fetchOrderWithIdController);
 
 router.post("/apply", passportMiddleware, applyToServiceController);
 

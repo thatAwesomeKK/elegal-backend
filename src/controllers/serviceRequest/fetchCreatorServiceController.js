@@ -21,7 +21,7 @@ export default async function (req, res) {
         path: "LegalProviderId",
         model: User,
         select: "username pfp",
-      });
+      }); 
 
     for (let i = 0; i < services.length; i++) {
       const service = services[i];
