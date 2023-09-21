@@ -13,12 +13,14 @@ export default async function (req, res) {
         city: user.city,
         type: user.type,
         caseType: user.specialization,
+        life: "created",
       });
     } else {
       services = await ServiceRequest.find({
         state: user.state,
         city: user.city,
         type: user.type,
+        life: "created",
       });
     }
 

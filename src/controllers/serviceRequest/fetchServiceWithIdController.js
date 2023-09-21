@@ -23,11 +23,17 @@ export default async function (req, res) {
           select: "_id username pfp",
         });
     } else {
-      service = await ServiceRequest.findById({ _id: serviceId }).populate({
-        path: "LegalProviderId",
-        model: User,
-        select: "username pfp",
-      });
+      service = await ServiceRequest.findById({ _id: serviceId })
+        .populate({
+          path: "LegalProviderId",
+          model: User,
+          select: "username pfp",
+        })
+        .populate({
+          path: "PotentialProviders.uid",
+          model: User,
+          select: "_id username pfp",
+        });
     }
 
     return res.status(200).json({
