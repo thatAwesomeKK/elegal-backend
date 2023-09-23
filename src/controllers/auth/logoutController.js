@@ -5,15 +5,23 @@ export default async function (req, res) {
   try {
     const user = await User.findById({ _id: req.user._id });
     if (!user) {
-      res.clearCookie("accessToken", cookieConfig);
-      return res.status(200).json({ success: false, error: "User does not Exists!" });
+      return res
+        .status(200)
+        .json({ success: false, error: "User does not Exists!" });
     }
-    res.clearCookie("accessToken", cookieConfig);
+
+    req.session.destroy(function (err) {
+      if (err) {
+        console.log(err);
+      }
+    });
+    
+    res.clearCookie("sid", { ...cookieConfig, maxAge: 1000 * 60 * 30 });
     return res
       .status(200)
       .json({ success: true, message: "Logged Out SuccessFully!" });
   } catch (error) {
-    res.clearCookie("accessToken", cookieConfig);
+    res.clearCookie("sid", { ...cookieConfig, maxAge: 1000 * 60 * 30 });
     return res
       .status(500)
       .json({ success: false, error: "Internal Server Error" });

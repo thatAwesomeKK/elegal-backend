@@ -8,32 +8,30 @@ export default async function (req, res) {
     const { email, password } = req.body;
 
     //Checking if user with email exists
-    const foundUser = await User.findOne({ email });
-    if (!foundUser) {
+    const existingUser = await User.findOne({ email });
+    if (!existingUser) {
       return res
-        .status(400)
+        .status(401)
         .json({ success: false, error: "Wrong Credentials" });
     }
 
-    const passwordCompare = await bcrypt.compare(password, foundUser.password);
+    const passwordCompare = await bcrypt.compare(
+      password,
+      existingUser.password
+    );
     if (!passwordCompare) {
       return res
-        .status(400)
+        .status(401)
         .json({ success: false, error: "Wrong Credentials" });
     }
 
-    const accessToken = getAccessToken({ id: foundUser._id });
+    req.session.user = existingUser._id;
 
-    //setting refreshToken in Cookie
-    res.cookie("accessToken", accessToken, cookieConfig);
-    return res.status(200).json({
-      success: true,
-      message: "Logged In Successfully!",
-    });
+    res.send({ success: true, message: "Logged In Successfully!" });
   } catch (error) {
     console.log(error);
     return res
-      .status(400)
+      .status(500)
       .json({ success: false, error: "Internal Server Error" });
   }
 }

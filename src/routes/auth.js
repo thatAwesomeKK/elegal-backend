@@ -4,9 +4,6 @@ import createUserController from "../controllers/auth/createUserController.js";
 import loginUserController from "../controllers/auth/loginUserController.js";
 import updateUserController from "../controllers/auth/updateUserController.js";
 import logoutController from "../controllers/auth/logoutController.js";
-import passport from "passport";
-import passportConfig from "../config/passportConfig.js";
-import passportMiddleware from "../middleware/passportMiddleware.js";
 import verifyEmailController from "../controllers/auth/verifyEmailController.js";
 import {
   verifyConfirmEmailToken,
@@ -14,8 +11,7 @@ import {
 } from "../middleware/jwtVerify.js";
 import forgotPasswordController from "../controllers/auth/forgotPasswordController.js";
 import changePasswordController from "../controllers/auth/changePasswordController.js";
-
-passportConfig(passport);
+import verifySession from "../middleware/verifySession.js";
 
 //POST
 router.post("/register", createUserController); //Register User /auth/register
@@ -29,8 +25,8 @@ router.post(
 );
 
 //PUT
-router.put("/update", passportMiddleware, updateUserController); //Update the User Profile /auth/update
+router.put("/update", verifySession, updateUserController); //Update the User Profile /auth/update
 
-router.get("/logout", passportMiddleware, logoutController); //Logout the User /auth/logout
+router.get("/logout", verifySession, logoutController); //Logout the User /auth/logout
 
 export default router;
