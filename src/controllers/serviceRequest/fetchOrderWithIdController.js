@@ -22,7 +22,7 @@ export default async function (req, res) {
         path: "PotentialProviders.uid",
         model: User,
         select: "_id username pfp",
-      });
+      })
 
     return res.status(200).json({
       success: true,

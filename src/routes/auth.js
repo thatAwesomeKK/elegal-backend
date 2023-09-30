@@ -2,7 +2,6 @@ import { Router } from "express";
 const router = Router();
 import createUserController from "../controllers/auth/createUserController.js";
 import loginUserController from "../controllers/auth/loginUserController.js";
-import updateUserController from "../controllers/auth/updateUserController.js";
 import logoutController from "../controllers/auth/logoutController.js";
 import verifyEmailController from "../controllers/auth/verifyEmailController.js";
 import {
@@ -23,9 +22,6 @@ router.post(
   verifyForgotPassToken,
   changePasswordController
 );
-
-//PUT
-router.put("/update", verifySession, updateUserController); //Update the User Profile /auth/update
 
 router.get("/logout", verifySession, logoutController); //Logout the User /auth/logout
 

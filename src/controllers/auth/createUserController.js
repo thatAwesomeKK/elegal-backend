@@ -19,7 +19,7 @@ export default async function (req, res) {
     const salt = await bcrypt.genSalt(10);
     const secPass = await bcrypt.hash(password, salt);
 
-    const avatarUrl = `https://avatars.dicebear.com/api/adventurer-neutral/${username}.svg`;
+    const avatarUrl = `https://api.dicebear.com/7.x/adventurer-neutral/png/seed=${username}`;
 
     let newUser = {
       username,
@@ -33,9 +33,8 @@ export default async function (req, res) {
     if (specialization) newUser.specialization = specialization;
     if (licenseId) newUser.licenseId = licenseId;
 
-
     const createdUser = await new User(newUser).save();
-    
+
     const HTML = verifyEmailGenerate(createdUser._id);
     const emailMessage = {
       from: "ELEGAL <elegal.thatawesomekk.eu.org>",

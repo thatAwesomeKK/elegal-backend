@@ -76,6 +76,16 @@ export const userSchema = new Schema(
       required: true,
       default: false,
     },
+    rating: {
+      type: Number,
+      default: 0,
+    },
+    ratings: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "feedback",
+      },
+    ],
   },
   { timestamps: true }
 );
