@@ -14,14 +14,15 @@ export default async function (req, res) {
 
     const service = await ServiceRequest.findById({ _id: serviceId })
       .populate({
-        path: "LegalProviderId",
+        path: "PotentialProviders.uid",
         model: User,
-        select: "username pfp",
+        select: "_id username pfp",
       })
+      .select("PotentialProviders");
 
     return res.status(200).json({
       success: true,
-      message: service,
+      message: service.PotentialProviders,
     });
   } catch (error) {
     return res.status(500).json({

@@ -9,6 +9,7 @@ import fetchServiceWithIdController from "../controllers/serviceRequest/fetchSer
 import applyToServiceController from "../controllers/serviceRequest/applyToServiceController.js";
 import fetchOrderWithIdController from "../controllers/serviceRequest/fetchOrderWithIdController.js";
 import verifySession from "../middleware/verifySession.js";
+import fetchAppliedProvidersController from "../controllers/serviceRequest/fetchAppliedProvidersController.js";
 
 //Create Service Request /api/service-request/create
 router.post("/create", verifySession, createServiceController);
@@ -25,6 +26,7 @@ router.get("/fetch-available", verifySession, fetchAvailableServices);
 
 router.get("/fetch-with-serviceid", verifySession, fetchServiceWithIdController);
 router.get("/fetch-with-orderid", verifySession, fetchOrderWithIdController);
+router.get("/fetch-applied-providers", verifySession, fetchAppliedProvidersController);
 
 router.post("/apply", verifySession, applyToServiceController);
 
