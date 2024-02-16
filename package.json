@@ -8,7 +8,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\"",
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "vercel-build": "echo hello"
   },
   "engines": {
     "node": ">=18.0.0"
